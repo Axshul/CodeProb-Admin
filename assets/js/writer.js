@@ -75,16 +75,46 @@
         // Setup live preview for article content
         setupLivePreview: function() {
             const contentTextarea = document.getElementById('article-content');
+            const referencesTextarea = document.getElementById('article-references');
             const livePreview = document.getElementById('live-preview');
             
             if (contentTextarea && livePreview) {
-                contentTextarea.addEventListener('input', () => {
+                const updatePreview = () => {
                     const content = contentTextarea.value;
-                    livePreview.innerHTML = this.processContent(content);
-                });
+                    const references = referencesTextarea ? referencesTextarea.value : '';
+                    
+                    let previewHTML = '';
+                    
+                    // Main content section
+                    if (content) {
+                        previewHTML += `
+                            <section class="content">
+                                ${this.processContent(content)}
+                            </section>
+                        `;
+                    }
+                    
+                    // References section
+                    if (references && references.trim()) {
+                        previewHTML += `
+                            <section class="references">
+                                <h2>References and Further Reading</h2>
+                                ${this.processRelatedLinks(references)}
+                            </section>
+                        `;
+                    }
+                    
+                    livePreview.innerHTML = previewHTML;
+                };
+                
+                // Listen to both content and references fields
+                contentTextarea.addEventListener('input', updatePreview);
+                if (referencesTextarea) {
+                    referencesTextarea.addEventListener('input', updatePreview);
+                }
                 
                 // Initial render
-                livePreview.innerHTML = this.processContent(contentTextarea.value);
+                updatePreview();
             }
         },
         
@@ -505,17 +535,34 @@
             return html;
         },
 
-        // Process related links
+        // Process related links with markdown support
         processRelatedLinks: function(links) {
-            if (!links) return '<p>No related content available.</p>';
+            if (!links || !links.trim()) return '<p>No related content available.</p>';
             
             const linkLines = links.split('\n').filter(line => line.trim());
             let html = '<ul>';
             
             linkLines.forEach(line => {
-                const match = line.match(/^\s*[•\-\*]\s*(.+)/);
-                if (match) {
-                    html += `<li>${match[1]}</li>`;
+                line = line.trim();
+                
+                // Handle different list formats
+                const bulletMatch = line.match(/^\s*[•\-\*]\s*(.+)/);
+                const numberedMatch = line.match(/^\s*\d+\.\s*(.+)/);
+                const plainMatch = line.match(/^(.+)$/);
+                
+                let content = '';
+                if (bulletMatch) {
+                    content = bulletMatch[1];
+                } else if (numberedMatch) {
+                    content = numberedMatch[1];
+                } else if (plainMatch && line) {
+                    content = plainMatch[1];
+                }
+                
+                if (content) {
+                    // Process markdown links in the content
+                    content = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+                    html += `<li>${content}</li>`;
                 }
             });
             

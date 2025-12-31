@@ -556,6 +556,10 @@
 
         // Generate filename based on content type and title
         generateFilename: function (title) {
+            if (this.currentTab === 'profile') {
+                return 'index.html';
+            }
+
             const id = this.generateId(title);
 
             switch (this.currentTab) {
@@ -565,8 +569,6 @@
                     return `${id}.html`;
                 case 'article':
                     return `article-${id}.html`;
-                case 'profile':
-                    return `index.html`;
                 default:
                     return `${id}.html`;
             }

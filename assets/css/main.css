@@ -24,39 +24,39 @@ body {
 
 :root {
     /* Enhanced Dark Wiki Theme - Deeper, More Professional */
-    --bg-primary: #0a0c10;
-    --bg-secondary: #0f1419;
-    --bg-tertiary: #1a1f26;
-    --bg-quaternary: #21262d;
-    --bg-code: #161b22;
-    --bg-hover: #1c2128;
+    --bg-primary: #050607;
+    --bg-secondary: #0c0f12;
+    --bg-tertiary: #161b1f;
+    --bg-quaternary: #1f252b;
+    --bg-code: #0b0f14;
+    --bg-hover: #12161b;
     
-    --text-primary: #f0f6fc;
-    --text-secondary: #e6edf3;
-    --text-muted: #7d8590;
-    --text-subtle: #656d76;
+    --text-primary: #f5f7fb;
+    --text-secondary: #d8dde5;
+    --text-muted: #8c94a3;
+    --text-subtle: #6f7786;
     
-    --link-color: #58a6ff;
-    --link-visited: #bc8cff;
-    --link-hover: #79c0ff;
-    --link-active: #409eff;
+    --link-color: #b5c7ff;
+    --link-visited: #a7b3ff;
+    --link-hover: #d0ddff;
+    --link-active: #8aa4ff;
     
-    --border-color: #21262d;
-    --border-light: #30363d;
-    --border-subtle: #373e47;
-    --border-muted: #424a53;
+    --border-color: #242a31;
+    --border-light: #2d343d;
+    --border-subtle: #323a44;
+    --border-muted: #3a434f;
     
-    --accent-blue: #1f6feb;
-    --accent-green: #238636;
-    --accent-yellow: #d29922;
-    --accent-red: #da3633;
-    --accent-purple: #8957e5;
-    --accent-orange: #fd7e14;
+    --accent-blue: #9fb6ff;
+    --accent-green: #46c37b;
+    --accent-yellow: #f2c24d;
+    --accent-red: #f26d6d;
+    --accent-purple: #b7a8ff;
+    --accent-orange: #f6a55a;
     
-    --success-color: #238636;
-    --warning-color: #d29922;
-    --error-color: #da3633;
-    --info-color: #1f6feb;
+    --success-color: #46c37b;
+    --warning-color: #f2c24d;
+    --error-color: #f26d6d;
+    --info-color: #9fb6ff;
     
     --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.4);
     --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);

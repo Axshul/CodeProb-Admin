@@ -19,21 +19,26 @@ jobs:
   # Test job
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        timeout-minutes: 2
         
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
+        timeout-minutes: 2
           
       - name: Install dependencies
         run: npm ci
+        timeout-minutes: 3
         
       - name: Run tests
         run: npm test
+        timeout-minutes: 5
 
   # Deploy job
   deploy:
@@ -43,18 +48,32 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        timeout-minutes: 2
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        timeout-minutes: 1
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
+          exclude-paths: |
+            node_modules/
+            .git/
+            .github/
+            tests/
+            *.md
+            package*.json
+            jest.config.js
+            .gitignore
+        timeout-minutes: 5
           
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        timeout-minutes: 5
